@@ -33,4 +33,5 @@ class HttpReq(object):
         response = requests.delete(url=url, data=data, headers=self.headers, cookies=cookies)
         return response
 
+# ET = easytest
 ETReq = HttpReq()
