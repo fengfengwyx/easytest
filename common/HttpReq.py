@@ -4,7 +4,7 @@
 Author：公众号：测试奇谭
 """
 import requests
-from day08.easytest.common.logger import write_log
+from day09.easytest.common.logger import write_log
 
 class HttpReq(object):
 
