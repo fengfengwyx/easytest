@@ -1,0 +1,28 @@
+接口项目搭建，可参考文章：https://mp.weixin.qq.com/s/EMXy4ir5VwknR5RzHwZS_A
+
+一、安装软件：
+1、python（建议安装3.7版本）
+2、Pycharm
+3、postman（接口测试工具）
+
+二、安装依赖
+1、进入项目路径：cd 项目
+2、打开Terminal，安装python依赖模块：pip3 install -r requirements.txt -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+运行后，如果某些模块安装失败，请单独执行以下命令（若遇红色报错，多试几次，即可）：
+pip3 install itypes==1.1.0 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip3 install idna==2.6 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip3 install MarkupSafe==1.1.1 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip3 install pytz==2017.3 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip3 install Jinja2==2.10 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip3 install requests==2.18.4 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip3 install djangorestframework==3.7.3 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+pip3 install requests==2.18.4 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+
+
+三、在项目路径下，启动项目：python run_server.py
+（因避免8000端口被占用，默认端口已更改为8099，地址本机127.0.0.1）
+启动过程中django报错，可参考文章：https://mp.weixin.qq.com/s/EMXy4ir5VwknR5RzHwZS_A
+
+其他报错，先百度解决，实在不能解决，再联系我：
+公众号：测试奇谭
+微信：wyxhero
