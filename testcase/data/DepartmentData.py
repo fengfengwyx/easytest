@@ -36,3 +36,13 @@ ADD_DATA = {
         "res_key": "already_exist",
         "res_value": 0},
 }
+
+
+QUERY_DATA = {
+    "test_query_department_001": {
+        "res_key": "results",
+        "res_value": []},
+    "test_query_department_002": {
+        "res_key": "dep_id",
+        "res_value": "T01"}
+}

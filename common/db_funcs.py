@@ -6,7 +6,7 @@ Author：公众号：测试奇谭
 
 import sqlite3
 from config.ProjectConfig import ETConfig
-from day09.easytest.common.logger import write_log
+from day10.easytest.common.logger import write_log
 
 def execute_db(sql):
     """
