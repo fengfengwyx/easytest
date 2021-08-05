@@ -1,112 +1,155 @@
 大家好，我是谭叔。
 
-上期，我们一起[搭建了自动化测试的项目环境](http://mp.weixin.qq.com/s?__biz=MzI0ODUyMDA2MQ==&mid=2247486690&idx=1&sn=dcc6b30079cf436a01b88aed3c084427&chksm=e99ec0f0dee949e6daa46dad408657311217973f8af46dc556bad834933431955a1718ed0a32#rd)。
+上期的unittest原理掌握了吗？如果没有，没关系，本期，请跟随我的脚步，通过写出你的第一个自动化测试用例，再来熟悉熟悉。
 
-本期，开始讲原理——**搞懂原理，你将更轻松的吃透自动化测试**。
+## 第一条用例
 
-> tips：网盘和github，会根据文章顺序，同步更新代码。
->
-> ![image-20210603110511351](http://pic.testtalking.com/testtalking/20210603110633.png)
+查看【接口环境】【项目文档】【自动化测试用例.xlsx】，写编号为test_add_department_001和test_add_department_002的用例。
 
-## 简单认识unittest
+![image-20210530202340614](http://pic.testtalking.com/testtalking/image-20210530202340614.png)
 
-创建一个test.py文件，引入unittest包
+![image-20210528160434346](http://pic.testtalking.com/testtalking/20210528160434.png)
 
-```import unittest
+新建一个testcase文件夹，创建一个AddDepartment.py文件。
+
+![image-20210603200147351](http://pic.testtalking.com/testtalking/20210603200147.png)
+
+写出新增模块的两条自动化测试用例：
+
+```python
+# !/usr/bin/python
+# -*- coding:utf-8 -*-+
 import unittest
+import json
+import requests
+
+
+class AddDepartment(unittest.TestCase):
+
+    def setUp(self):
+        print("{0} 执行前，清除数据库".format(self._testMethodName))
+
+    def tearDown(self):
+        print("{0} 执行后，清除数据库".format(self._testMethodName))
+
+    def test_add_department_001(self):
+        """新增T01学院"""
+        result = requests.post(url='http://127.0.0.1:8099/api/departments/',
+                               headers={"Content-Type": "application/json",
+                                         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"},
+                               data=json.dumps({"data":[{"dep_id":"T01","dep_name":"Test学院","master_name":"Test-Master","slogan":"Here is Slogan"}]})
+                            )
+        # 查看请求的结果
+        print(result.status_code,result.text)
+
+
+    def test_add_department_002(self):
+        """重复新增T01学院"""
+        result = requests.post(url='http://127.0.0.1:8099/api/departments/',
+                               headers={"Content-Type": "application/json",
+                                         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"},
+                               data=json.dumps({"data":[{"dep_id":"T01","dep_name":"Test学院","master_name":"Test-Master","slogan":"Here is Slogan"}]})
+                            )
+        # 查看请求的结果
+        print(result.status_code,result.text)
+
+if __name__ == '__main__':
+    # 构造测试
+    suite = unittest.TestSuite()
+    suite.addTest(AddDepartment("test_add_department_001"))
+    suite.addTest(AddDepartment("test_add_department_002"))
+    # 本地测试用，可以在控制台看到日志
+    runner = unittest.TextTestRunner()
+    test_result = runner.run(suite)
 ```
 
-![image-20210508165035063](http://pic.testtalking.com/testtalking/20210508165035.png)
+## 拆解用例
 
-长按ctrl+鼠标左键进入，可获取到unittest的一些信息：
+根据上一期的知识点，一一拆解本条用例。
 
-1. unittest简介
-2. **unittest的方法必须以test开头**（按规矩办事）
-3. 官方文档链接（支持中文）
-4. 一个简单的demo例子（可以粘贴出来运行）
+### 测试用例（case：TestCase）
 
-<img src="http://pic.testtalking.com/testtalking/20210508165458.png" alt="image-20210508165458661" style="zoom: 67%;" />
+在这条测试用例TestCase中，有：
 
-## unittest原理
+- setUp：在执行测试用例之前，初始化数据库（方法下期实现）
 
-一说“原理“二字，很多人顿觉脑壳痛。
+  ![image-20210529205053853](http://pic.testtalking.com/testtalking/20210529205053.png)
 
-放心，我不会枯燥的讲原理。
+- test_add_department_001：自动化测试用例
 
-贴一张图，换种方式给你讲明白。
+  ![image-20210529205136221](http://pic.testtalking.com/testtalking/20210529205136.png)
 
+- tearDown：在执行测试用例之后，恢复数据库（方法下期实现）
 
-
-<img src="http://pic.testtalking.com/testtalking/20210508170212.png" alt="image-20210508170212506"  />
-
-
-
-回忆下你平时的工作场景。
-
-你领到了一份功能测试任务，开始：
-
-### 写测试用例（case：TestCase）
-
-![image-20210508172155917](http://pic.testtalking.com/testtalking/20210508172155.png)
-
-写测试用例，得考虑一些环境问题吧。
-
-举个例子，一些用例需要在弱网环境下执行，你得设置测试环境（setUp），然后执行测试用例（run），执行完后，为了不影响其他用例执行，你得恢复测试环境（tearDown）。
-
-so，套用到unittest上，TestCase的作用便是如此，它有三个组件：
-
-- setUp：在执行测试用例之前，初始化环境
-
-- run：执行测试用例
-
-- tearDown：在执行测试用例之后，还原环境
+  ![image-20210529205117076](http://pic.testtalking.com/testtalking/20210529205117.png)
 
 ### 整理测试用例之一（suite：TestSuite）
 
-![image-20210508173524213](http://pic.testtalking.com/testtalking/20210508173524.png)
+你写了新增学院、重复新增学院的用例，这两条用例需要集合到新增模块中，形成一个新增suite（集合）；
 
-你在写测试用例的过程中，是按照模块写的吧。
+套用到unittest上，使用TestSuite集合用例。
 
-举个例子，拿注册来说，你写了正常注册用例、异常注册用例，这两个用例需要集合到注册模块中，形成一个注册suite（集合）；
-
-![image-20210508173312909](http://pic.testtalking.com/testtalking/20210508173312.png)
-
-再拿登录来说，你写了正常登录用例、异常登录用例，这两个用例需要集合到登录模块中，形成一个登录suite（集合）。
-
-而注册suite和登录suite，又可以整理成一个更大的用户鉴权的sutie（套件）。
-
-so，套用到unittest上，TestSuite的作用便是如此——集合用例。
+![image-20210525232236209](http://pic.testtalking.com/testtalking/20210525232236.png)
 
 ### 整理测试用例之二（loader：TestLoader）
 
-![image-20210508173538890](http://pic.testtalking.com/testtalking/20210508173538.png)
-
-你在写用例时，不会写一条用例就去执行一条用例，而是写完每一个模块的用例，放到用例集里面，等到执行。
-
-TestLoader的作用便是加载 testcase（测试用例） 到 testsuite（测试用例集） 中，用以后续执行。
+此点暂未涉及，下期会说。
 
 ### 执行测试用例（runner）
 
-![image-20210508173818943](http://pic.testtalking.com/testtalking/20210508173818.png)
+![image-20210525232259750](http://pic.testtalking.com/testtalking/20210525232259.png)
 
-到这一步，相信聪明的你，不用再让我举例说明了吧。
+TextTestRunner通过run 方法执行测试用例。
 
-TextTestRunner执行测试用例（run 方法），将测试结果保存在 TextTestResult 中。
+最后，我们看看控制台的输出：
 
-### 总结下来，简单四步走：
+![image-20210529211957834](http://pic.testtalking.com/testtalking/image-20210529211957834.png)
 
-1. 编写测试用例TestCase（方法必须以test开头）
-2. TestLoader将TestCase加载到TestSuite中
-3. TextTestRunner运行测试集合TestSuite
-4. 运行的结果会保存至TextTestResult中
+STEP 01：第一次新增前，清除数据库
 
-现在想想，原理难吗？
+STEP 02：第一次新增，返回新增成功（无重复results）
 
-下期，我们一起写出第一个自动化测试用例！
+STEP 03：第一次新增后，清除数据库
+
+STEP 04：第二次新增前，清除数据库
+
+STEP 05：第二次新增，返回新增失败（有重复results）
+
+STEP 06：第二次新增后，清除数据库
+
+## 问题
+
+但是，在写用例和执行用例的过程中，你是否发现了这些问题？
+
+### 01 请求未封装
+
+URL、Headers、请求体，全在用例层。当用例过多时，代码可阅读性低，且很难维护。
+
+![image-20210525232509162](http://pic.testtalking.com/testtalking/20210525232509.png)
+
+### 02 需要补全清除数据库的方法
+
+![image-20210529212030296](http://pic.testtalking.com/testtalking/image-20210529212030296.png)
+
+### 03 第二条用例依赖第一条用例
+
+即，第一条用例必须执行成功。
+
+此外，第二条用例，不能初始化数据库（这意味着数据丢失）。
+
+![image-20210529211957834](http://pic.testtalking.com/testtalking/image-20210529211957834.png)
+
+### 04 用例集缺乏统一管理和调度
+
+现在的用例集在类文件执行，很麻烦。当查询、修改、删除模块都增加后，需要有一个地方统一控制这些模块的运行。
+
+![image-20210525232520431](http://pic.testtalking.com/testtalking/20210525232520.png)
+
+以上四个问题，下期，咱一起解决。
 
 ## 一如既往，做个总结
 
-**01 不管是Python的unittest、pytest，还是Java的JUnit、TestNG，你按照平时做功能测试的思维去理解框架，一点也不复杂；**
+**01 问题不止于此，部分问题，我会放在后面解决。在这之前，你可以想想，还有哪些问题。**
 
-**02 每一类框架都有它的特性，如何运用它们的特性完成你的自动化测试工作，是你在学习并掌握它们后该去思考和探索的。**
+**02 一定要上手实操。**
 
