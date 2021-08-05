@@ -6,6 +6,7 @@ Author：公众号：测试奇谭
 
 import sqlite3
 from config.ProjectConfig import ETConfig
+from day08.easytest.common.logger import write_log
 
 def execute_db(sql):
     """
@@ -13,19 +14,22 @@ def execute_db(sql):
     :param sql: sql语句
     :return:
     """
-    # 打开数据库连接
-    conn = sqlite3.connect("{0}\\studentManagementSystem\\db.sqlite3".format(ETConfig.PROJECT_DIR))
-    # 新建游标
-    cursor = conn.cursor()
-    # 执行sql
-    cursor.execute(sql)
-    # 获取执行结果
-    result = cursor.fetchall()
-    # 关闭游标、提交连接、关闭连接
-    cursor.close()
-    conn.commit()
-    conn.close()
-    return result
+    try:
+        # 打开数据库连接
+        conn = sqlite3.connect("{0}\\studentManagementSystem\\db.sqlite3".format(ETConfig.PROJECT_DIR))
+        # 新建游标
+        cursor = conn.cursor()
+        # 执行sql
+        cursor.execute(sql)
+        # 获取执行结果
+        result = cursor.fetchall()
+        # 关闭游标、提交连接、关闭连接
+        cursor.close()
+        conn.commit()
+        conn.close()
+        return result
+    except sqlite3.OperationalError as e:
+        write_log.error("数据库连接，执行失败：{}".format(e))
 
 
 def init_db():

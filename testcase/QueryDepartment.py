@@ -5,11 +5,10 @@ Author：公众号：测试奇谭
 """
 import unittest
 from config.ProjectConfig import ETConfig
-from day07.easytest.common.HttpReq import ETReq
+from day08.easytest.common.HttpReq import ETReq
 
 
 class QueryDepartment(unittest.TestCase):
-
 
     def test_query_department_001(self):
         """查询所有学院"""

@@ -5,6 +5,7 @@ Author：公众号：测试奇谭
 """
 import unittest
 from functools import wraps
+from day08.easytest.common.logger import write_log
 
 def skip_related_case(related_case_name=''):
     """
@@ -22,14 +23,33 @@ def skip_related_case(related_case_name=''):
             if (related_case_name in fail_cases):
                 reson = "{}断言失败，跳过执行{}用例".format(related_case_name, func.__name__)
                 test = unittest.skipIf(True, reson)(func(*args, **kwargs))
+                write_log.info(reson)
             elif (related_case_name in error_cases):
                 reson = "{}执行报错，跳过执行{}用例".format(related_case_name, func.__name__)
                 test = unittest.skipIf(True, reson)(func(*args, **kwargs))
+                write_log.info(reson)
             elif (related_case_name in skip_cases):
                 reson = "{}跳过未执行，跳过执行{}用例".format(related_case_name, func.__name__)
                 test = unittest.skipIf(True, reson)(func(*args, **kwargs))
+                write_log.info(reson)
             else:
                 test = func
             return test(*args, **kwargs)
+        return inner_func
+    return wraper_func
+
+
+def write_case_log():
+    """
+    记录用例运行日志
+    :return:
+    """
+    def wraper_func(func):
+        @wraps(func)
+        def inner_func(*args, **kwargs):
+            write_log.info('{}开始执行'.format(func.__name__))
+            func(*args, **kwargs)
+            write_log.info('{}执行中'.format(args))
+            write_log.info('{}结束执行'.format(func.__name__))
         return inner_func
     return wraper_func

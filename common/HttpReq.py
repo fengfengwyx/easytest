@@ -3,8 +3,8 @@
 """
 Author：公众号：测试奇谭
 """
-
 import requests
+from day08.easytest.common.logger import write_log
 
 class HttpReq(object):
 
@@ -15,23 +15,35 @@ class HttpReq(object):
 
     # GET 请求
     def get(self, url='', data='', cookies=None):
-        response = requests.get(url=url, data=data, headers=self.headers, cookies=cookies)
-        return response
+        try:
+            response = requests.get(url=url, data=data, headers=self.headers, cookies=cookies)
+            return response
+        except Exception as e:
+            write_log.error("GET请求失败：{}".format(e))
 
     # POST 请求
     def post(self, url='', data='', cookies=None):
-        response = requests.post(url=url, data=data, headers=self.headers, cookies=cookies)
-        return response
+        try:
+            response = requests.post(url=url, data=data, headers=self.headers, cookies=cookies)
+            return response
+        except Exception as e:
+            write_log.error("POST请求失败：{}".format(e))
 
     # PUT 请求
     def put(self, url='', params='', data='', cookies=None):
-        response = requests.put(url=url, params=params, data=data, headers=self.headers, cookies=cookies)
-        return response
+        try:
+            response = requests.put(url=url, params=params, data=data, headers=self.headers, cookies=cookies)
+            return response
+        except Exception as e:
+            write_log.error("PUT请求失败：{}".format(e))
 
     # DELETE 请求
     def delete(self, url='', data='', cookies=None):
-        response = requests.delete(url=url, data=data, headers=self.headers, cookies=cookies)
-        return response
+        try:
+            response = requests.delete(url=url, data=data, headers=self.headers, cookies=cookies)
+            return response
+        except Exception as e:
+            write_log.error("DELETE请求失败：{}".format(e))
 
 # ET = easytest
 ETReq = HttpReq()
