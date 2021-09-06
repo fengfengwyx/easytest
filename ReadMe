@@ -3,6 +3,10 @@
 欢迎关注微信公众号：测试奇谭，解锁更多实战项目
 
 二、easytest目录介绍
-1、接口环境，为接口项目
-2、代码分支有day01-day10，建议先结合公众号文章逐日checkout练习
-3、easytest目录：common、config、logs、main、report、testcase
+1、目录-接口环境，为接口项目，需要大件接口测试环境，参考文章：https://mp.weixin.qq.com/s?__biz=MzI0ODUyMDA2MQ==&mid=2247484953&idx=1&sn=29360322757e0b50df9aa67eb441ca71&chksm=e99eca0bdee9431dffa0293c80ebd933ac5f9539f5efa949fd1c26d68c9eb1c0970e410d4d2b&token=1669503563&lang=zh_CN#rd
+2、代码分支有day01-day10，建议结合公众号文章逐日checkout到对应分支练习
+3、easytest目录：
+- common 公共方法
+- config 自动化程序配置
+- main 自动化主运行程序
+- testcase 测试用例
