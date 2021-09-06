@@ -41,8 +41,8 @@
 ```python
 # !/usr/bin/python
 # -*- coding:utf-8 -*-
-from day10.easytest.common.HTMLTestRunnerCNs import HTMLTestRunner
-from day10.easytest.common.logger import write_log
+from common.HTMLTestRunnerCNs import HTMLTestRunner
+from common.logger import write_log
 from config.ProjectConfig import ETConfig
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
