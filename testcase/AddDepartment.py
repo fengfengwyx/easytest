@@ -6,8 +6,8 @@ Author：公众号：测试奇谭
 import unittest
 import json
 from config.ProjectConfig import ETConfig
-from day05.easytest.common.db_funcs import init_db
-from day05.easytest.common.HttpReq import ETReq
+from common.db_funcs import init_db
+from common.HttpReq import ETReq
 
 
 class AddDepartment(unittest.TestCase):

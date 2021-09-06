@@ -148,8 +148,8 @@ if __name__ == '__main__':
 import unittest
 import json
 from config.ProjectConfig import ETConfig
-from day05.easytest.common.db_funcs import init_db
-from day05.easytest.common.HttpReq import ETReq
+from common.db_funcs import init_db
+from common.HttpReq import ETReq
 
 class AddDepartment(unittest.TestCase):
 
@@ -215,8 +215,8 @@ if __name__ == '__main__':
 import unittest
 import json
 from config.ProjectConfig import ETConfig
-from day05.easytest.common.db_funcs import init_db
-from day05.easytest.common.HttpReq import ETReq
+from common.db_funcs import init_db
+from common.HttpReq import ETReq
 
 
 class AddDepartment(unittest.TestCase):
@@ -289,7 +289,7 @@ STEP 04：执行所有case后，清除数据库
 # -*- coding:utf-8 -*-+
 import unittest
 from config.ProjectConfig import ETConfig
-from day05.easytest.common.HttpReq import ETReq
+from common.HttpReq import ETReq
 
 
 class QueryDepartment(unittest.TestCase):
