@@ -4,9 +4,9 @@
 Author：公众号：测试奇谭
 """
 from config.ProjectConfig import ETConfig
-from day08.easytest.common.db_funcs import init_db
-from day08.easytest.common.HttpReq import ETReq
-from day08.easytest.common.wrapers import skip_related_case,write_case_log
+from common.db_funcs import init_db
+from common.HttpReq import ETReq
+from common.wrapers import skip_related_case,write_case_log
 import unittest
 import json
 
