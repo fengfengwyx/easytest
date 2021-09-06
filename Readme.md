@@ -100,7 +100,7 @@ ADD_DATA = {
 > 本篇采用加载字典的方式实现。
 
 ```python
-from day09.easytest.testcase.data.DepartmentData import ADD_DATA
+from testcase.data.DepartmentData import ADD_DATA
 from ddt import ddt, data, unpack
 
 ...
@@ -149,10 +149,10 @@ from ddt import ddt, data, unpack
 # !/usr/bin/python
 # -*- coding:utf-8 -*-+
 from config.ProjectConfig import ETConfig
-from day09.easytest.common.db_funcs import init_db
-from day09.easytest.common.HttpReq import ETReq
-from day09.easytest.common.wrapers import skip_related_case,write_case_log
-from day09.easytest.testcase.data.DepartmentData import ADD_DATA
+from common.db_funcs import init_db
+from common.HttpReq import ETReq
+from common.wrapers import skip_related_case,write_case_log
+from testcase.data.DepartmentData import ADD_DATA
 from ddt import ddt, data, unpack
 import unittest
 import json
