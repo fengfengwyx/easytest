@@ -5,7 +5,7 @@ Author：公众号：测试奇谭
 """
 import unittest
 from config.ProjectConfig import ETConfig
-from day07.easytest.common.HttpReq import ETReq
+from common.HttpReq import ETReq
 
 
 class QueryDepartment(unittest.TestCase):
