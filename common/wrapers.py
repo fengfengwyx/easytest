@@ -5,7 +5,7 @@ Author：公众号：测试奇谭
 """
 import unittest
 from functools import wraps
-from day10.easytest.common.logger import write_log
+from common.logger import write_log
 
 def skip_related_case(related_case_name=''):
     """

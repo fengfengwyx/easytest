@@ -5,9 +5,9 @@ Author：公众号：测试奇谭
 """
 import unittest
 from config.ProjectConfig import ETConfig
-from day10.easytest.common.HttpReq import ETReq
-from day10.easytest.common.wrapers import skip_related_case, write_case_log
-from day10.easytest.testcase.data.DepartmentData import QUERY_DATA
+from common.HttpReq import ETReq
+from common.wrapers import skip_related_case, write_case_log
+from testcase.data.DepartmentData import QUERY_DATA
 from ddt import ddt, data, unpack
 import json
 
